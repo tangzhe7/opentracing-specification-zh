@@ -13,7 +13,7 @@ OpenTracing标准使用`Major.Minor`版本命名策略（即：大版本.小版�
 ## OpenTracing数据模型
 
 OpenTracing中的**Trace**（调用链）通过归属于此调用链的**Span**来隐性的定义。
-特别说明，一条**Trace**（调用链）可以被认为是一个由多个**Span**组成的有向无环图（DAG图），
+特别说明，一条**Trace**（调用链）可以被认为是一个由多个**Span**组成的有向无环图（DAG图，节点是Span，边是Span之间的引用关系），
 **Span**与**Span**的关系被命名为**References**。
 
 __译者注: Span，可以被翻译为跨度，可以被理解为一次方法调用, 一个程序块的调用, 或者一次RPC/数据库访问.只要是一个具有完整时间周期的程序访问，都可以被认为是一个span.在此译本中，为了便于理解，Span和其他标准内声明的词汇，全部不做名词翻译。__
@@ -60,8 +60,8 @@ __译者注: Span，可以被翻译为跨度，可以被理解为一次方法调
 - An operation name，操作名称
 - A start timestamp，起始时间
 - A finish timestamp，结束时间
-- **Span Tag**，一组键值对构成的Span标签集合。键值对中，键必须为string，值可以是字符串，布尔，或者数字类型。
-- **Span Log**，一组span的日志集合。
+- **Span Tag**，一组键值对构成的Span标签集合。键值对中，键必须为string，值可以是字符串，布尔，或者数字类型，Span包含 0个或者多个Span Tag。
+- **Span Log**，一组span的日志集合，Span 包含0个或者多个Span Log。
   每次log操作包含一个键值对，以及一个时间戳。
   键值对中，键必须为string，值可以是任意类型。
   但是需要注意，不是所有的支持OpenTracing的Tracer,都需要支持所有的值类型。
@@ -70,7 +70,7 @@ __译者注: Span，可以被翻译为跨度，可以被理解为一次方法调
 
 每一个**SpanContext**包含以下状态：
 
-- 任何一个OpenTracing的实现，都需要将当前调用链的状态（例如：trace和span的id），依赖一个独特的Span去跨进程边界传输
+- 任何实现OpenTracing的依赖状态（例如：trace和span的id），都需要跨边界传递唯一的Span
 - **Baggage Items**，Trace的随行数据，是一个键值对集合，它存在于trace中，也需要跨进程边界传输
 
 ### Span间关系
