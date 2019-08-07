@@ -70,8 +70,8 @@ __译者注: Span，可以被翻译为跨度，可以被理解为一次方法调
 
 每一个**SpanContext**包含以下状态：
 
-- 任何实现OpenTracing的依赖状态（例如：trace和span的id），都需要跨边界传递唯一的Span
-- **Baggage Items**，Trace的随行数据，是一个键值对集合，它存在于trace中，也需要跨进程边界传输
+- 任何实现OpenTracing的依赖状态（例如：trace和span的id），都需要跨进程传递唯一的Span
+- **Baggage Items**，是一个键值对集合，也需要跨进程传输
 
 ### Span间关系
 
